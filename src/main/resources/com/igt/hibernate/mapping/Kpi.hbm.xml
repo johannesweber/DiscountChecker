@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 02.06.2016 18:01:06 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.igt.hibernate.bean.Kpi" table="kpi">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="process" class="com.igt.hibernate.bean.Process" fetch="join">
+            <column name="process" />
+        </many-to-one>
+        <many-to-one name="webservice" class="com.igt.hibernate.bean.Webservice" fetch="join">
+            <column name="webservice" />
+        </many-to-one>
+        <property name="kpiFallout" type="double">
+            <column name="kpi_fallout" />
+        </property>
+        <property name="kpiPrecision" type="double">
+            <column name="kpi_precision" />
+        </property>
+        <property name="kpiRecall" type="double">
+            <column name="kpi_recall" />
+        </property>
+    </class>
+</hibernate-mapping>

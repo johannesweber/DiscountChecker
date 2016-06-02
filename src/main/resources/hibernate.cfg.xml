@@ -39,7 +39,11 @@
 		<!-- mapping files -->
 		<mapping resource="com/igt/hibernate/mapping/Costumer.hbm.xml" />
 		<mapping resource="com/igt/hibernate/mapping/IgtOrder.hbm.xml" /> 
-		<mapping resource="com/igt/hibernate/mapping/PeerGroup.hbm.xml" /> 
+		<mapping resource="com/igt/hibernate/mapping/PeerGroup.hbm.xml" />
+		<mapping resource="com/igt/hibernate/mapping/Process.hbm.xml" /> 
+		<mapping resource="com/igt/hibernate/mapping/Settings.hbm.xml" /> 
+		<mapping resource="com/igt/hibernate/mapping/Step.hbm.xml" /> 
+		<mapping resource="com/igt/hibernate/mapping/Webservice.hbm.xml" /> 
 
 	</session-factory>
 </hibernate-configuration>

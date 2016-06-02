@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 02.06.2016 14:33:54 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.igt.hibernate.bean.Process" table="process">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="java.lang.String">
+            <column name="name" />
+        </property>
+        <set name="steps" table="step" inverse="false" lazy="true">
+            <key>
+                <column name="id" />
+            </key>
+            <one-to-many class="com.igt.hibernate.bean.Step" />
+        </set>
+    </class>
+</hibernate-mapping>

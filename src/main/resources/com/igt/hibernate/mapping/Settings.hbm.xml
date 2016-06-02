@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 02.06.2016 15:03:11 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.igt.hibernate.bean.Settings" table="settings">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="baseUrl" type="java.lang.String">
+            <column name="base_url" />
+        </property>
+        <property name="pathUrl" type="java.lang.String">
+            <column name="path_url" />
+        </property>
+        <property name="wsdlPathUrl" type="java.lang.String">
+            <column name="wsdl_path_url" />
+        </property>
+        <property name="bpmnPathUrl" type="java.lang.String">
+            <column name="bpmn_path_url" />
+        </property>
+    </class>
+</hibernate-mapping>
