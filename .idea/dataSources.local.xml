@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="resources:hibernate.cfg.xml/Hibernate" uuid="587a7591-14ba-47fc-8208-afe1ea264940">
+      <user-name>root</user-name>
+      <user-password>dfc0dfcedfc8dfc9df90dfc7dfd3dfd9dfdbdfc6df90df85df85df9bdf98df9ddf84df9adf84df9adf84df9bdf90df99df99df9adf9ddf85dfc3dfcddfdedfd9dfd9df9bdf9cdf95dfd0dfcfdfd8dfc5dfeedfcbdfdedfcfdffedfc3dfc7dfcfdfe8dfcfdfc2dfcbdfdcdfc3dfc5dfd8df97dfc9dfc5dfc4dfdcdfcfdfd8dfdedffedfc5dfe4dfdfdfc6dfc6df8cdfcbdfdfdfdedfc5dff8dfcfdfc9dfc5dfc4dfc4dfcfdfc9dfdedf97dfdedfd8dfdfdfcf</user-password>
+      <schema-pattern>igtss16.*</schema-pattern>
+      <default-schemas>igtss16.*</default-schemas>
+    </data-source>
+  </component>
+</project>
