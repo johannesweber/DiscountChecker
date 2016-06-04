@@ -11,11 +11,11 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
+import com.igt.helper.RestResponse;
 import com.igt.hibernate.DatabaseManager;
 import com.igt.hibernate.bean.Costumer;
 import com.igt.hibernate.bean.IgtOrder;
 import com.igt.hibernate.bean.PeerGroup;
-import com.igt.matcher.helper.RestResponse;
 
 public class DiscountManager {
 

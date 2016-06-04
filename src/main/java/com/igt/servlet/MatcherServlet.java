@@ -9,9 +9,9 @@ import javax.ws.rs.core.UriInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
+import com.igt.helper.RestResponse;
 import com.igt.hibernate.DatabaseManager;
 import com.igt.manager.MatcherManager;
-import com.igt.matcher.helper.RestResponse;
 
 @Path("matcher/")
 public class MatcherServlet {
@@ -29,7 +29,9 @@ public class MatcherServlet {
 		
 		MatcherManager manager = new MatcherManager();
 		
-		wadlPath = uriInfo.getBaseUri().toString().split("api")[0] + "application.wadl";
+		String baseUrl = uriInfo.getBaseUri().toString().split("api")[0];
+		wadlPath = baseUrl + "application.wadl";
+		bpmnPath = baseUrl + "approve_discount_request.xml";
 		
 		return manager.match(bpmnPath, wadlPath, this.databaseManager);
 	}

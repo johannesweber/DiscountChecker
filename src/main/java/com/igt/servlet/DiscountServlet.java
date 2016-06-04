@@ -12,9 +12,9 @@ import com.igt.hibernate.bean.Costumer;
 import com.igt.manager.DiscountManager;
 
 @Path("discount/")
-public class DiscountCheckerServlet {
+public class DiscountServlet {
 	
-	static final Logger log = (Logger) LogManager.getLogger(DiscountCheckerServlet.class);
+	static final Logger log = (Logger) LogManager.getLogger(DiscountServlet.class);
 	DatabaseManager databaseManager = new DatabaseManager();
 	DiscountManager manager = new DiscountManager();
 	

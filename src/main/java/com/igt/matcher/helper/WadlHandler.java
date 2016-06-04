@@ -112,7 +112,7 @@ public class WadlHandler {
 			Set<Method> methods = resource.getMethods();
 			boolean success = true;
 			for(Method method : methods){
-				if (method.getName() == methodName){
+				if (method.getName().equals(methodName)){
 					success = false;
 				}
 			}
@@ -121,14 +121,14 @@ public class WadlHandler {
 				method.setName(methodName);
 				method.setType(HttpVerb.valueOf(methodType));
 				method.setResource(resource);
+				resource.addMethod(method);
 				dbManager.saveEntity(method);
-			}
-			dbManager.commitTransaction();
-			
-			
-			
+				dbManager.commitTransaction();
+			}	
 		} catch (Exception e) {
 			log.fatal("Could not connect to Database", e);
+		} finally {
+			dbManager.endTransaction();
 		}
 	}
 
@@ -139,7 +139,6 @@ public class WadlHandler {
 		String paramType = paramElement.getAttribute(typeString).split(":")[1];
 		System.out.println("Param Type: " + paramType);
 		
-		
 		DatabaseManager dbManager = new DatabaseManager();
 		
 		try {
@@ -149,23 +148,20 @@ public class WadlHandler {
 			//get parent from database
 			Resource resource = dbManager.getResourceByPath(parentPath);
 			//check if param isnt available yet
-			Set<Param> params = resource.getParams();
-			boolean success = true;
-			for(Param param : params){
-				if (param.getName() == paramName){
-					success = false;
-				}
-			}
-			if(success){
-				Param param = new Param();
+			Param param = dbManager.getParamByNameAndResource(resource, paramName);
+			if(param == null){
+				param = new Param();
 				param.setName(paramName);
 				param.setType(paramType);
 				param.setResource(resource);
-				dbManager.saveEntity(param);
+				resource.addParam(param);
+				dbManager.saveOrUpdateEntity(param);
+				dbManager.commitTransaction();
 			}
-			dbManager.commitTransaction();
 		} catch (Exception e) {
 			log.fatal("Could not connect to Database", e);
+		} finally {
+			dbManager.endTransaction();
 		}
 	}
 
@@ -185,8 +181,9 @@ public class WadlHandler {
 				newServlet.setBaseUrl(baseUrl);
 				newServlet.setPath(resourcePath);
 				dbManager.saveEntity(newServlet);
+				dbManager.commitTransaction();
 			}
-			dbManager.commitTransaction();
+
 		} catch (Exception e){
 			log.fatal("Could not connect to Database", e);
 		} finally{

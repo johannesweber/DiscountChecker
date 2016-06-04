@@ -11,7 +11,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.igt.matcher.helper.RestResponse;
+import com.igt.helper.RestResponse;
 import com.igt.validator.helper.PPErrorHandler;
 
 public class ValidatorManager {

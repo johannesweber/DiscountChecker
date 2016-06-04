@@ -13,9 +13,12 @@ import com.igt.hibernate.DatabaseManager;
 import com.igt.hibernate.SessionFactoryUtil;
 import com.igt.hibernate.bean.Costumer;
 import com.igt.hibernate.bean.IgtOrder;
+import com.igt.hibernate.bean.Param;
 import com.igt.hibernate.bean.PeerGroup;
 import com.igt.hibernate.bean.Resource;
 import com.igt.hibernate.bean.Servlet;
+import com.igt.hibernate.bean.Step;
+import com.igt.hibernate.bean.Process;
 
 public class DatabaseManager {
 	
@@ -208,5 +211,43 @@ protected static final Logger log = LogManager.getLogger(DatabaseManager.class);
 				.uniqueResult();
 		
 		return resource;
+	}
+	
+	public Process getProcessByName(String name){
+		Session session = null;
+		Process process = null;
+		
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		process = (Process) session.createCriteria(Process.class)
+				.add(Restrictions.eq("name", name))
+				.uniqueResult();
+		
+		return process;
+	}
+	
+	public Step getStepByNameAndProcess(Process process, String name){
+		Session session = null;
+		Step step = null;
+		
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		step = (Step) session.createCriteria(Step.class)
+				.add(Restrictions.eq("name", name))
+				.add(Restrictions.eq("process", process))
+				.uniqueResult();
+		
+		return step;
+	}
+	
+	public Param getParamByNameAndResource(Resource resource, String name){
+		Session session = null;
+		Param param = null;
+		
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		param = (Param) session.createCriteria(Param.class)
+				.add(Restrictions.eq("name", name))
+				.add(Restrictions.eq("resource", resource))
+				.uniqueResult();
+		
+		return param;
 	}
 }

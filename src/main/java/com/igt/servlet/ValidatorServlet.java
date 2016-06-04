@@ -9,8 +9,8 @@ import javax.ws.rs.PathParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
+import com.igt.helper.RestResponse;
 import com.igt.manager.ValidatorManager;
-import com.igt.matcher.helper.RestResponse;
 
 @Path("validator/")
 public class ValidatorServlet {

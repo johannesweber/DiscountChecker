@@ -1,4 +1,4 @@
-package com.igt.matcher.helper;
+package com.igt.helper;
 
 public class RestResponse {
 

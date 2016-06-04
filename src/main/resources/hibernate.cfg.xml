@@ -45,7 +45,6 @@
 		<mapping resource="com/igt/hibernate/mapping/PeerGroup.hbm.xml" />
 		<mapping resource="com/igt/hibernate/mapping/Process.hbm.xml" /> 
 		<mapping resource="com/igt/hibernate/mapping/Resource.hbm.xml" /> 
-		<mapping resource="com/igt/hibernate/mapping/Settings.hbm.xml" /> 
 		<mapping resource="com/igt/hibernate/mapping/Step.hbm.xml" /> 
 		<mapping resource="com/igt/hibernate/mapping/Servlet.hbm.xml" /> 
 

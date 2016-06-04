@@ -1,7 +1,8 @@
 package com.igt.manager;
 
+import com.igt.helper.RestResponse;
 import com.igt.hibernate.DatabaseManager;
-import com.igt.matcher.helper.RestResponse;
+import com.igt.matcher.helper.BpmnHandler;
 import com.igt.matcher.helper.WadlHandler;
 
 public class MatcherManager {
@@ -12,8 +13,8 @@ public class MatcherManager {
 		WadlHandler wadlHandler = new WadlHandler();
 		
 		wadlHandler.handleWadl(wadlPath, databaseManager);
+		//bpmnHandler.handleBpmn(bpmnPath, databaseManager);
 		
 		return null;
 	}
-
 }
