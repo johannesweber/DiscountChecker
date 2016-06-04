@@ -1,4 +1,4 @@
-package com.igt.discount.helper;
+package com.igt.manager;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -15,6 +15,7 @@ import com.igt.hibernate.DatabaseManager;
 import com.igt.hibernate.bean.Costumer;
 import com.igt.hibernate.bean.IgtOrder;
 import com.igt.hibernate.bean.PeerGroup;
+import com.igt.matcher.helper.RestResponse;
 
 public class DiscountManager {
 

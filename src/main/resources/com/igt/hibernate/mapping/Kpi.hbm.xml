@@ -9,10 +9,10 @@
             <generator class="identity" />
         </id>
         <many-to-one name="process" class="com.igt.hibernate.bean.Process" fetch="join">
-            <column name="process" />
+            <column name="process_id" />
         </many-to-one>
-        <many-to-one name="webservice" class="com.igt.hibernate.bean.Webservice" fetch="join">
-            <column name="webservice" />
+        <many-to-one name="servlet" class="com.igt.hibernate.bean.Servlet" fetch="join">
+            <column name="servlet_id" />
         </many-to-one>
         <property name="kpiFallout" type="double">
             <column name="kpi_fallout" />

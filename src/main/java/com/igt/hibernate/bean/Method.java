@@ -1,15 +1,19 @@
 package com.igt.hibernate.bean;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Method {
 
 	private int id;
 	private String name;
 	private HttpVerb type;
-	private Set<Param> params = new HashSet<Param>();
-	private Webservice webservice;
+	private Resource resource;
+
+	public Resource getResource() {
+		return resource;
+	}
+
+	public void setResource(Resource resource) {
+		this.resource = resource;
+	}
 
 	public int getId() {
 		return id;
@@ -34,21 +38,4 @@ public class Method {
 	public void setType(HttpVerb type) {
 		this.type = type;
 	}
-
-	public Set<Param> getParams() {
-		return params;
-	}
-
-	public void setParams(Set<Param> params) {
-		this.params = params;
-	}
-
-	public Webservice getWebservice() {
-		return webservice;
-	}
-
-	public void setWebservice(Webservice webservice) {
-		this.webservice = webservice;
-	}
-
 }

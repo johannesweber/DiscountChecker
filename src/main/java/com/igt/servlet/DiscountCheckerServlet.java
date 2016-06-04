@@ -1,4 +1,4 @@
-package com.igt.discount.servlet;
+package com.igt.servlet;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -7,9 +7,9 @@ import javax.ws.rs.PathParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import com.igt.discount.helper.DiscountManager;
 import com.igt.hibernate.DatabaseManager;
 import com.igt.hibernate.bean.Costumer;
+import com.igt.manager.DiscountManager;
 
 @Path("discount/")
 public class DiscountCheckerServlet {

@@ -12,7 +12,7 @@
             <column name="name" />
         </property>
         <many-to-one name="process" class="com.igt.hibernate.bean.Process" fetch="join">
-            <column name="process" />
+            <column name="process_id" />
         </many-to-one>
     </class>
 </hibernate-mapping>

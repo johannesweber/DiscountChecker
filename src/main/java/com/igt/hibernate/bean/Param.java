@@ -5,7 +5,7 @@ public class Param {
 	private int id;
 	private String name;
 	private String type;
-	private Method method;
+	private Resource resource;
 
 	public int getId() {
 		return id;
@@ -31,12 +31,11 @@ public class Param {
 		this.type = type;
 	}
 
-	public Method getMethod() {
-		return method;
+	public Resource getResource() {
+		return resource;
 	}
 
-	public void setMethod(Method method) {
-		this.method = method;
+	public void setResource(Resource resource) {
+		this.resource = resource;
 	}
-
 }

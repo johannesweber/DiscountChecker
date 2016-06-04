@@ -4,7 +4,7 @@ public class Kpi {
 
 	private int id;
 	private Process process;
-	private Webservice webservice;
+	private Servlet servlet;
 	private double kpiFallout;
 	private double kpiPrecision;
 	private double kpiRecall;
@@ -24,15 +24,6 @@ public class Kpi {
 	public void setProcess(Process process) {
 		this.process = process;
 	}
-
-	public Webservice getWebservice() {
-		return webservice;
-	}
-
-	public void setWebservice(Webservice webservice) {
-		this.webservice = webservice;
-	}
-
 	public double getKpiFallout() {
 		return kpiFallout;
 	}
@@ -55,6 +46,14 @@ public class Kpi {
 
 	public void setKpiRecall(double kpiRecall) {
 		this.kpiRecall = kpiRecall;
+	}
+
+	public Servlet getServlet() {
+		return servlet;
+	}
+
+	public void setServlet(Servlet servlet) {
+		this.servlet = servlet;
 	}
 
 }

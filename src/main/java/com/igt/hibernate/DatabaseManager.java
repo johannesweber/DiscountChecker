@@ -14,6 +14,8 @@ import com.igt.hibernate.SessionFactoryUtil;
 import com.igt.hibernate.bean.Costumer;
 import com.igt.hibernate.bean.IgtOrder;
 import com.igt.hibernate.bean.PeerGroup;
+import com.igt.hibernate.bean.Resource;
+import com.igt.hibernate.bean.Servlet;
 
 public class DatabaseManager {
 	
@@ -74,7 +76,7 @@ protected static final Logger log = LogManager.getLogger(DatabaseManager.class);
 			session.close();
 	}
 
-	public void flushSession() throws Exception {
+	public void flushSession() {
 		Session session = null;
 
 		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
@@ -91,7 +93,7 @@ protected static final Logger log = LogManager.getLogger(DatabaseManager.class);
 		return session.isOpen();
 	}
 
-	public void deleteEntity(Object entity) throws Exception {
+	public void deleteEntity(Object entity) {
 		Session session = null;
 
 		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
@@ -99,7 +101,7 @@ protected static final Logger log = LogManager.getLogger(DatabaseManager.class);
 
 	}
 	
-	public void saveOrUpdateEntity(Object entity) throws Exception {
+	public void saveOrUpdateEntity(Object entity) {
 		Session session = null;
 
 		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
@@ -107,7 +109,7 @@ protected static final Logger log = LogManager.getLogger(DatabaseManager.class);
 
 	}
 
-	public void saveEntity(Object entity) throws Exception {
+	public void saveEntity(Object entity) {
 		Session session = null;
 
 		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
@@ -115,7 +117,7 @@ protected static final Logger log = LogManager.getLogger(DatabaseManager.class);
 
 	}
 
-	public void updateEntity(Object entity) throws Exception {
+	public void updateEntity(Object entity) {
 		Session session = null;
 
 		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
@@ -168,5 +170,43 @@ protected static final Logger log = LogManager.getLogger(DatabaseManager.class);
 				.uniqueResult();
 		
 		return peerGroup;
+	}
+	
+	public Servlet getServletByPath(String path){
+		Session session = null;
+		Servlet servlet = null;
+		
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		servlet = (Servlet) session.createCriteria(Servlet.class)
+				.add(Restrictions.eq("path", path))
+				.uniqueResult();
+		
+		return servlet;
+		
+	}
+	
+	public Servlet getServletByBaseUrl(String baseUrl){
+		Session session = null;
+		Servlet servlet = null;
+		
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		servlet = (Servlet) session.createCriteria(Servlet.class)
+				.add(Restrictions.eq("baseUrl", baseUrl))
+				.uniqueResult();
+		
+		return servlet;
+		
+	}
+	
+	public Resource getResourceByPath(String path){
+		Session session = null;
+		Resource resource = null;
+		
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		resource = (Resource) session.createCriteria(Resource.class)
+				.add(Restrictions.eq("path", path))
+				.uniqueResult();
+		
+		return resource;
 	}
 }

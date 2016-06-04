@@ -1,0 +1,76 @@
+<application xmlns="http://wadl.dev.java.net/2009/02">
+<doc xmlns:jersey="http://jersey.java.net/" jersey:generatedBy="Jersey: 2.22.1 2015-10-07 10:54:41"/>
+<doc xmlns:jersey="http://jersey.java.net/" jersey:hint="This is simplified WADL with user and core resources only. To get full WADL with extended resources use the query parameter detail. Link: http://localhost:8080/DiscountChecker/api/v1/application.wadl?detail=true"/>
+<grammars/>
+<resources base="http://localhost:8080/DiscountChecker/api/v1/">
+<resource path="discount/">
+<resource path="ratio/{total}/{part}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="total" style="template" type="xs:double"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="part" style="template" type="xs:double"/>
+<method id="getRatio" name="GET">
+<response>
+<representation mediaType="*/*"/>
+</response>
+</method>
+</resource>
+<resource path="age/costumer/{costumerId}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="costumerId" style="template" type="xs:int"/>
+<method id="getAge" name="GET">
+<response>
+<representation mediaType="*/*"/>
+</response>
+</method>
+</resource>
+<resource path="costumer/{costumerId}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="costumerId" style="template" type="xs:int"/>
+<method id="getCostumer" name="GET">
+<response>
+<representation mediaType="*/*"/>
+</response>
+</method>
+</resource>
+<resource path="sales/">
+<method id="getTotalSales" name="GET">
+<response>
+<representation mediaType="*/*"/>
+</response>
+</method>
+</resource>
+<resource path="sales/costumer/{costumerId}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="costumerId" style="template" type="xs:int"/>
+<method id="getTotalSalesFromCostumer" name="GET">
+<response>
+<representation mediaType="*/*"/>
+</response>
+</method>
+</resource>
+<resource path="sales/peerGroup/costumer/{costumerId}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="costumerId" style="template" type="xs:int"/>
+<method id="getTotalSalesFromPeerGroup" name="GET">
+<response>
+<representation mediaType="*/*"/>
+</response>
+</method>
+</resource>
+<resource path="check/age/{peerGroupOwnerAge}/{costumerAge}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="costumerAge" style="template" type="xs:int"/>
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="peerGroupOwnerAge" style="template" type="xs:int"/>
+<method id="checkAgeDifference" name="GET">
+<response>
+<representation mediaType="*/*"/>
+</response>
+</method>
+</resource>
+</resource>
+<resource path="validator/">
+<resource path="wsdl/{path}">
+<param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="path" style="template" type="xs:string"/>
+<method id="getCostumer" name="GET">
+<response>
+<representation mediaType="*/*"/>
+</response>
+</method>
+</resource>
+</resource>
+</resources>
+</application>
