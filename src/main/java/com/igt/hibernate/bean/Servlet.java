@@ -6,6 +6,7 @@ import java.util.Set;
 public class Servlet {
 
 	private int id;
+	private String filepath;
 	private String baseUrl;
 	private String path;
 	private Set<Resource> resources = new HashSet<Resource>();
@@ -44,5 +45,13 @@ public class Servlet {
 	
 	public void addResource(Resource resource) {
 		this.resources.add(resource);
+	}
+
+	public String getFilepath() {
+		return filepath;
+	}
+
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
 	}
 }

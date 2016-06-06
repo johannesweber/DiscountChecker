@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_1g7b9rs">
     <bpmn:participant id="Participant_18b30c0" name="create peer group" processRef="Process_1" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_1" isExecutable="false">
+  <bpmn:process id="Process_1" name="create peer group" isExecutable="false">
     <bpmn:serviceTask id="ServiceTask_14pvyc2" name="get costumer age">
       <bpmn:incoming>SequenceFlow_0ytwz50</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_02a3jb0</bpmn:outgoing>

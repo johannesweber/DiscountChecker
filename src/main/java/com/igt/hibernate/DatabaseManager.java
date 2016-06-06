@@ -250,4 +250,63 @@ protected static final Logger log = LogManager.getLogger(DatabaseManager.class);
 		
 		return param;
 	}
+	
+	public Servlet getServletById(int id){
+		Session session = null;
+		Servlet servlet = null;
+		
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		servlet = (Servlet) session.createCriteria(Servlet.class)
+				.add(Restrictions.eq("id", id))
+				.uniqueResult();
+		
+		return servlet;
+	}
+	@SuppressWarnings("unchecked")
+	public List<Resource> getResourcesByServlet(Servlet servlet){
+		Session session = null;
+		List<Resource> resources = null;
+
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		resources = session.createCriteria(Resource.class)
+				.add(Restrictions.eq("servlet", servlet))
+				.list();
+		
+		return resources;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Step> getStepsByProcess(Process process){
+		Session session = null;
+		List<Step> resources = null;
+
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		resources = session.createCriteria(Step.class)
+				.add(Restrictions.eq("process", process))
+				.list();
+		
+		return resources;
+	}
+	
+	public Process getProcessByFilepath(String filepath){
+		Session session = null;
+		Process process = null;
+
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		process = (Process) session.createCriteria(Process.class)
+				.add(Restrictions.eq("filepath", filepath));
+		
+		return process;
+	}
+	
+	public Servlet getServletByFilepath(String filepath){
+		Session session = null;
+		Servlet servlet = null;
+
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		servlet = (Servlet) session.createCriteria(Servlet.class)
+				.add(Restrictions.eq("filepath", filepath));
+		
+		return servlet;
+	}
 }

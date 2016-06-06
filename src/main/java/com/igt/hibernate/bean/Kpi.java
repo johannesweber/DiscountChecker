@@ -3,8 +3,8 @@ package com.igt.hibernate.bean;
 public class Kpi {
 
 	private int id;
-	private Process process;
-	private Servlet servlet;
+	private String methodName;
+	private String stepName;
 	private double kpiFallout;
 	private double kpiPrecision;
 	private double kpiRecall;
@@ -17,13 +17,22 @@ public class Kpi {
 		this.id = id;
 	}
 
-	public Process getProcess() {
-		return process;
+	public String getMethodName() {
+		return methodName;
 	}
 
-	public void setProcess(Process process) {
-		this.process = process;
+	public void setMethodName(String methodName) {
+		this.methodName = methodName;
 	}
+
+	public String getStepName() {
+		return stepName;
+	}
+
+	public void setStepName(String stepName) {
+		this.stepName = stepName;
+	}
+
 	public double getKpiFallout() {
 		return kpiFallout;
 	}
@@ -47,13 +56,4 @@ public class Kpi {
 	public void setKpiRecall(double kpiRecall) {
 		this.kpiRecall = kpiRecall;
 	}
-
-	public Servlet getServlet() {
-		return servlet;
-	}
-
-	public void setServlet(Servlet servlet) {
-		this.servlet = servlet;
-	}
-
 }
