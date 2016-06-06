@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 06.06.2016 20:00:25 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.igt.hibernate.bean.Kpi" table="kpi">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="methodName" type="java.lang.String">
+            <column name="method_name" />
+        </property>
+        <property name="stepName" type="java.lang.String">
+            <column name="step_name" />
+        </property>
+        <property name="kpiFallout" type="double">
+            <column name="kpi_fallout" />
+        </property>
+        <property name="kpiPrecision" type="double">
+            <column name="kpi_precision" />
+        </property>
+        <property name="kpiRecall" type="double">
+            <column name="kpi_recall" />
+        </property>
+    </class>
+</hibernate-mapping>
