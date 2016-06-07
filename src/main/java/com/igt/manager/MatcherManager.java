@@ -1,25 +1,45 @@
 package com.igt.manager;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.igt.helper.RestResponse;
 import com.igt.hibernate.DatabaseManager;
+import com.igt.hibernate.bean.Kpi;
 import com.igt.matcher.helper.BpmnHandler;
 import com.igt.matcher.helper.KpiHandler;
 import com.igt.matcher.helper.WadlHandler;
 
 public class MatcherManager {
 	
-	//TODO zwei servlets erstellen (eines um in die datenbank zu schreiben und eins um zu vergleichen)
-	public RestResponse match(String bpmnPath, String wadlPath, DatabaseManager databaseManager){
-		
-		BpmnHandler bpmnHandler = new BpmnHandler();
-		WadlHandler wadlHandler = new WadlHandler();
-		
-		wadlHandler.handleWadl(wadlPath, databaseManager);
-		bpmnHandler.handleBpmn(bpmnPath, databaseManager);
+	public RestResponse match(int bpmnID, int wadlID, DatabaseManager databaseManager){
 		
 		KpiHandler kpi = new KpiHandler();
-		kpi.calculateKPI(bpmnPath, wadlPath, databaseManager);
+		List<Kpi> kpis = kpi.calculateKPI(bpmnID, wadlID, databaseManager);
 		
-		return null;
+		return new RestResponse(true, null, kpis);
 	}
+	
+	public RestResponse createBpmn(String bpmnPath, DatabaseManager databaseManager){
+		BpmnHandler bpmnHandler = new BpmnHandler();
+		int bpmnID = bpmnHandler.handleBpmn(bpmnPath, databaseManager);
+		
+		Map<String, Integer> ids = new HashMap<String, Integer>();
+		ids.put("bpmnID", bpmnID);
+		
+		return new RestResponse(true, null, ids);
+		
+	}
+	
+	public RestResponse createWadl(String wadlPath, DatabaseManager databaseManager){
+		WadlHandler wadlHandler = new WadlHandler();
+		Map<String, Integer> servletIDs = wadlHandler.handleWadl(wadlPath, databaseManager);
+		
+		Map<String, Integer> ids = new HashMap<String, Integer>();
+		ids.putAll(servletIDs);
+		
+		return new RestResponse(true, null, ids);
+		
+	}
+
 }

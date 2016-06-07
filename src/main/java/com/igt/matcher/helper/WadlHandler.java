@@ -10,6 +10,8 @@ import com.igt.hibernate.bean.Servlet;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -39,16 +41,11 @@ public class WadlHandler {
 	private String pathString = "path";
 	private String nameString = "name";
 	private String idString = "id";
+	private Map<String, Integer> servletIDs = new HashMap<String, Integer>();
 	
 	String baseUrl = null;
 
-	public void handleWadl(String path, DatabaseManager databaseManager) {
-
-		this.iterateThroughWadl(path, databaseManager);
-	}
-
-	private void iterateThroughWadl(String path, DatabaseManager databaseManager) {
-
+	public Map<String, Integer> handleWadl(String path, DatabaseManager databaseManager) {
 		try {
 
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -68,18 +65,22 @@ public class WadlHandler {
 		} catch (RuntimeException e) {
 			log.fatal("Could not connect to Database", e);
 		}
+		return this.servletIDs;
 	}
 
 	private void saveNode(Node node) {
 		if (node.getNodeName() == resourcesString) {
 			this.getBaseUrl(node);
 		} else if (node.getNodeName() == resourceString && node.getParentNode().getNodeName() == resourcesString) {
-			this.createServlet(node);
+			Servlet servlet = this.createServlet(node);
+			servletIDs.put(servlet.getPath(), servlet.getId());
 		} else if (node.getNodeName() == resourceString && node.getParentNode().getNodeName() == resourceString) {
 			this.createResource(node);
-		} else if (node.getNodeName() == paramString) {
-			this.createParam(node);
-		} else if (node.getNodeName() == methodString) {
+		} 
+//		else if (node.getNodeName() == paramString) {
+//			this.createParam(node);
+//		} 
+		else if (node.getNodeName() == methodString) {
 			this.createMethod(node);
 		}
 
@@ -165,22 +166,22 @@ public class WadlHandler {
 		}
 	}
 
-	private void createServlet(Node node) {
+	private Servlet createServlet(Node node) {
 		Element resourceElement = (Element) node;
 		String resourcePath = resourceElement.getAttribute(pathString);
 		System.out.println("Servlet Class Path: " + resourcePath);
-
+		Servlet servlet = null;
 		// get Resource by parent
 		DatabaseManager dbManager = new DatabaseManager();
 
 		try {
 			dbManager.beginTransaction();
-			Servlet servlet = dbManager.getServletByPath(resourcePath);
+			servlet = dbManager.getServletByPath(resourcePath);
 			if (servlet == null) {
-				Servlet newServlet = new Servlet();
-				newServlet.setBaseUrl(baseUrl);
-				newServlet.setPath(resourcePath);
-				dbManager.saveEntity(newServlet);
+				servlet = new Servlet();
+				servlet.setBaseUrl(baseUrl);
+				servlet.setPath(resourcePath);
+				dbManager.saveEntity(servlet);
 				dbManager.commitTransaction();
 			}
 
@@ -189,6 +190,7 @@ public class WadlHandler {
 		} finally{
 			dbManager.endTransaction();
 		}
+		return servlet;
 
 	}
 

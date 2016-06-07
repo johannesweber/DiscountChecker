@@ -14,7 +14,7 @@
         <many-to-one name="servlet" class="com.igt.hibernate.bean.Servlet" fetch="join">
             <column name="servlet_id" />
         </many-to-one>
-        <set name="methods" table="method" inverse="false" lazy="true">
+        <set name="methods" table="method" inverse="false" lazy="false">
             <key>
                 <column name="id" />
             </key>

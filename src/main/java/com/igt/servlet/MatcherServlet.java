@@ -1,8 +1,10 @@
 package com.igt.servlet;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
@@ -22,18 +24,40 @@ public class MatcherServlet {
 	@Context
     UriInfo uriInfo;
 	
-	@GET
-	@Path("match/{bpmnPath}/{wadlPath}")
-	public RestResponse getCostumer(@PathParam("bpmnPath") String bpmnPath,
-			@PathParam("wadlPath") String wadlPath) {
+	@POST
+	@Path("bpmn/{bpmnPath}")
+	@Produces("application/json")
+	public RestResponse createBpmn(@PathParam("bpmnPath") String bpmnPath) {
+		
+		MatcherManager manager = new MatcherManager();
+		
+		String baseUrl = uriInfo.getBaseUri().toString().split("api")[0];
+		bpmnPath = baseUrl + "approve_discount_request.xml";
+		
+		return manager.createBpmn(bpmnPath, databaseManager);
+	}
+	
+	@POST
+	@Path("wadl/{wadlPath}")
+	@Produces("application/json")
+	public RestResponse createWadl(@PathParam("wadlPath") String wadlPath) {
 		
 		MatcherManager manager = new MatcherManager();
 		
 		String baseUrl = uriInfo.getBaseUri().toString().split("api")[0];
 		wadlPath = baseUrl + "application.wadl";
-		bpmnPath = baseUrl + "approve_discount_request.xml";
 		
-		return manager.match(bpmnPath, wadlPath, this.databaseManager);
+		return manager.createWadl(wadlPath, databaseManager);
+	}
+	@GET
+	@Path("match/{bpmnID}/{wadlID}")
+	@Produces("application/json")
+	public RestResponse getCostumer(@PathParam("wadlID") int wadlID,
+			@PathParam("bpmnID") int bpmnID) {
+		
+		MatcherManager manager = new MatcherManager();
+		
+		return manager.match(bpmnID, wadlID, databaseManager);
 	}
 
 }

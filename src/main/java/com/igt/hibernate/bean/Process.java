@@ -6,7 +6,6 @@ import java.util.Set;
 public class Process {
 	
 	private int id;
-	private String filepath;
 	private String name;
 	private Set<Step> steps = new HashSet<Step>();
 	
@@ -27,11 +26,5 @@ public class Process {
 	}
 	public void setSteps(Set<Step> steps) {
 		this.steps = steps;
-	}
-	public String getFilepath() {
-		return filepath;
-	}
-	public void setFilepath(String filepath) {
-		this.filepath = filepath;
 	}	
 }

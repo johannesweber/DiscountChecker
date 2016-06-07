@@ -7,10 +7,10 @@
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.connection.url">
-			jdbc:mysql://127.0.0.1:3307/igtss16?zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true
+			jdbc:mysql://127.0.0.1:3306/igtss?zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true
 		</property>
 		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password">Joongleur86</property>
+		<property name="hibernate.connection.password"></property>
 		
 		<property name="connection.autoReconnect">true</property>
 		<property name="connection.autoReconnectForPools">true</property>

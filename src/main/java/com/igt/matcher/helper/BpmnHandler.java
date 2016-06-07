@@ -28,13 +28,9 @@ public class BpmnHandler {
 
 	static final Logger log = (Logger) LogManager.getLogger(BpmnHandler.class);
 
-	public void handleBpmn(String path, DatabaseManager databaseManager) {
+	public int handleBpmn(String path, DatabaseManager databaseManager) {
 
-		this.iterateThroughBpmn(path, databaseManager);
-	}
-
-	private void iterateThroughBpmn(String path, DatabaseManager databaseManager) {
-
+		int servletID = 0;
 		try {
 
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -43,7 +39,7 @@ public class BpmnHandler {
 			Document document = dBuilder.parse(new URL(path).openStream());
 
 			Process process = this.createProcess(document, databaseManager);
-
+			servletID = process.getId();
 			NodeList tasks = this.getTasks(document);
 			this.saveTasksToDatabase(process, tasks, databaseManager);
 
@@ -56,6 +52,7 @@ public class BpmnHandler {
 		} catch (IOException e) {
 			log.fatal("Could not read Document", e);
 		}
+		return servletID;
 	}
 
 	private Process createProcess(Document document, DatabaseManager databaseManager) {

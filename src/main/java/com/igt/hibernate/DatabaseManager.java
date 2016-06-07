@@ -13,6 +13,7 @@ import com.igt.hibernate.DatabaseManager;
 import com.igt.hibernate.SessionFactoryUtil;
 import com.igt.hibernate.bean.Costumer;
 import com.igt.hibernate.bean.IgtOrder;
+import com.igt.hibernate.bean.Method;
 import com.igt.hibernate.bean.Param;
 import com.igt.hibernate.bean.PeerGroup;
 import com.igt.hibernate.bean.Resource;
@@ -287,26 +288,28 @@ protected static final Logger log = LogManager.getLogger(DatabaseManager.class);
 		
 		return resources;
 	}
-	
-	public Process getProcessByFilepath(String filepath){
+
+	public Process getProcessById(int bpmnID) {
 		Session session = null;
 		Process process = null;
-
+		
 		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
 		process = (Process) session.createCriteria(Process.class)
-				.add(Restrictions.eq("filepath", filepath));
+				.add(Restrictions.eq("id", bpmnID))
+				.uniqueResult();
 		
 		return process;
 	}
 	
-	public Servlet getServletByFilepath(String filepath){
+	public Method getMethodByName(String name){
 		Session session = null;
-		Servlet servlet = null;
-
-		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
-		servlet = (Servlet) session.createCriteria(Servlet.class)
-				.add(Restrictions.eq("filepath", filepath));
+		Method method = null;
 		
-		return servlet;
+		session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+		method = (Method) session.createCriteria(Method.class)
+				.add(Restrictions.eq("name", name))
+				.uniqueResult();
+		
+		return method;
 	}
 }

@@ -3,9 +3,9 @@ package com.igt.hibernate.bean;
 public class Kpi {
 
 	private int id;
-	private String methodName;
-	private String stepName;
-	private double kpiFallout;
+	private Resource resource;
+	private Step step;
+	private double kpiFMeasure;
 	private double kpiPrecision;
 	private double kpiRecall;
 
@@ -17,28 +17,28 @@ public class Kpi {
 		this.id = id;
 	}
 
-	public String getMethodName() {
-		return methodName;
+	public Resource getResource() {
+		return resource;
 	}
 
-	public void setMethodName(String methodName) {
-		this.methodName = methodName;
+	public void setResource(Resource resource) {
+		this.resource = resource;
 	}
 
-	public String getStepName() {
-		return stepName;
+	public Step getStep() {
+		return step;
 	}
 
-	public void setStepName(String stepName) {
-		this.stepName = stepName;
+	public void setStep(Step step) {
+		this.step = step;
 	}
 
-	public double getKpiFallout() {
-		return kpiFallout;
+	public double getKpiFMeasure() {
+		return kpiFMeasure;
 	}
 
-	public void setKpiFallout(double kpiFallout) {
-		this.kpiFallout = kpiFallout;
+	public void setKpiFMeasure(double kpiFMeasure) {
+		this.kpiFMeasure = kpiFMeasure;
 	}
 
 	public double getKpiPrecision() {
