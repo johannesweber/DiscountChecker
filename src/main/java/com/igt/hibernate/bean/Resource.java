@@ -9,19 +9,12 @@ public class Resource {
 	private String path;
 	private Servlet servlet;
 	private Set<Method> methods = new HashSet<Method>();
-	private Set<Param> params = new HashSet<Param>();
 	
 	public Set<Method> getMethods() {
 		return methods;
 	}
 	public void setMethods(Set<Method> methods) {
 		this.methods = methods;
-	}
-	public Set<Param> getParams() {
-		return params;
-	}
-	public void setParams(Set<Param> params) {
-		this.params = params;
 	}
 	public int getId() {
 		return id;
@@ -37,9 +30,6 @@ public class Resource {
 	}
 	public void addMethod(Method method){
 		this.methods.add(method);
-	}
-	public void addParam(Param params){
-		this.params.add(params);
 	}
 	public Servlet getServlet() {
 		return servlet;

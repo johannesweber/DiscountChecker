@@ -3,7 +3,6 @@ package com.igt.matcher.helper;
 import com.igt.hibernate.DatabaseManager;
 import com.igt.hibernate.bean.HttpVerb;
 import com.igt.hibernate.bean.Method;
-import com.igt.hibernate.bean.Param;
 import com.igt.hibernate.bean.Resource;
 import com.igt.hibernate.bean.Servlet;
 
@@ -33,8 +32,6 @@ public class WadlHandler {
 	// element strings
 	private String resourcesString = "resources";
 	private String resourceString = "resource";
-	private String paramString = "param";
-	private String typeString = "type";
 	private String methodString = "method";
 	// attribute strings
 	private String baseString = "base";
@@ -73,13 +70,10 @@ public class WadlHandler {
 			this.getBaseUrl(node);
 		} else if (node.getNodeName() == resourceString && node.getParentNode().getNodeName() == resourcesString) {
 			Servlet servlet = this.createServlet(node);
-			servletIDs.put(servlet.getPath(), servlet.getId());
+			servletIDs.put("Servlet with Path: " + servlet.getBaseUrl()  + servlet.getPath() + " Id", servlet.getId());
 		} else if (node.getNodeName() == resourceString && node.getParentNode().getNodeName() == resourceString) {
 			this.createResource(node);
 		} 
-//		else if (node.getNodeName() == paramString) {
-//			this.createParam(node);
-//		} 
 		else if (node.getNodeName() == methodString) {
 			this.createMethod(node);
 		}
@@ -126,39 +120,6 @@ public class WadlHandler {
 				dbManager.saveEntity(method);
 				dbManager.commitTransaction();
 			}	
-		} catch (Exception e) {
-			log.fatal("Could not connect to Database", e);
-		} finally {
-			dbManager.endTransaction();
-		}
-	}
-
-	private void createParam(Node node) {
-		Element paramElement = (Element) node;
-		String paramName = paramElement.getAttribute(nameString);
-		System.out.println("Param Name: " + paramName);
-		String paramType = paramElement.getAttribute(typeString).split(":")[1];
-		System.out.println("Param Type: " + paramType);
-		
-		DatabaseManager dbManager = new DatabaseManager();
-		
-		try {
-			dbManager.beginTransaction();
-			//get parent path
-			String parentPath = this.getParentValueByAttribute(node, pathString);
-			//get parent from database
-			Resource resource = dbManager.getResourceByPath(parentPath);
-			//check if param isnt available yet
-			Param param = dbManager.getParamByNameAndResource(resource, paramName);
-			if(param == null){
-				param = new Param();
-				param.setName(paramName);
-				param.setType(paramType);
-				param.setResource(resource);
-				resource.addParam(param);
-				dbManager.saveOrUpdateEntity(param);
-				dbManager.commitTransaction();
-			}
 		} catch (Exception e) {
 			log.fatal("Could not connect to Database", e);
 		} finally {

@@ -14,7 +14,7 @@
 		<property name="path" type="java.lang.String">
 			<column name="path" />
 		</property>
-		<set name="resources" table="resource" inverse="false" lazy="true">
+		<set name="resources" table="resource" inverse="false" lazy="false">
 			<key>
 				<column name="id" />
 			</key>

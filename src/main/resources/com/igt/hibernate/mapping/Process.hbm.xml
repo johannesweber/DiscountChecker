@@ -11,7 +11,7 @@
         <property name="name" type="java.lang.String">
             <column name="name" />
         </property>
-        <set name="steps" table="step" inverse="false" lazy="true">
+        <set name="steps" table="step" inverse="false" lazy="false">
             <key>
                 <column name="id" />
             </key>

@@ -20,7 +20,7 @@ public class MatcherManager {
 		return new RestResponse(true, null, kpis);
 	}
 	
-	public RestResponse createBpmn(String bpmnPath, DatabaseManager databaseManager){
+	public RestResponse analyseBpmn(String bpmnPath, DatabaseManager databaseManager){
 		BpmnHandler bpmnHandler = new BpmnHandler();
 		int bpmnID = bpmnHandler.handleBpmn(bpmnPath, databaseManager);
 		
@@ -31,7 +31,7 @@ public class MatcherManager {
 		
 	}
 	
-	public RestResponse createWadl(String wadlPath, DatabaseManager databaseManager){
+	public RestResponse analyseWadl(String wadlPath, DatabaseManager databaseManager){
 		WadlHandler wadlHandler = new WadlHandler();
 		Map<String, Integer> servletIDs = wadlHandler.handleWadl(wadlPath, databaseManager);
 		

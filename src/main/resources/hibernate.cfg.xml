@@ -7,7 +7,7 @@
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.connection.url">
-			jdbc:mysql://127.0.0.1:3306/igtss?zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true
+			jdbc:mysql://127.0.0.1:3307/igtss16?zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true
 		</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password"></property>
@@ -41,7 +41,6 @@
 		<mapping resource="com/igt/hibernate/mapping/IgtOrder.hbm.xml" />
 		<mapping resource="com/igt/hibernate/mapping/Kpi.hbm.xml" />
 		<mapping resource="com/igt/hibernate/mapping/Method.hbm.xml" />
-		<mapping resource="com/igt/hibernate/mapping/Param.hbm.xml" />
 		<mapping resource="com/igt/hibernate/mapping/PeerGroup.hbm.xml" />
 		<mapping resource="com/igt/hibernate/mapping/Process.hbm.xml" /> 
 		<mapping resource="com/igt/hibernate/mapping/Resource.hbm.xml" /> 

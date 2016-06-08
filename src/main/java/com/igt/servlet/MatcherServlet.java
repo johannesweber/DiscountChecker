@@ -27,37 +27,37 @@ public class MatcherServlet {
 	@POST
 	@Path("bpmn/{bpmnPath}")
 	@Produces("application/json")
-	public RestResponse createBpmn(@PathParam("bpmnPath") String bpmnPath) {
+	public RestResponse analyseBpmn(@PathParam("bpmnPath") String bpmnPath) {
 		
 		MatcherManager manager = new MatcherManager();
 		
 		String baseUrl = uriInfo.getBaseUri().toString().split("api")[0];
 		bpmnPath = baseUrl + "approve_discount_request.xml";
 		
-		return manager.createBpmn(bpmnPath, databaseManager);
+		return manager.analyseBpmn(bpmnPath, databaseManager);
 	}
 	
 	@POST
 	@Path("wadl/{wadlPath}")
 	@Produces("application/json")
-	public RestResponse createWadl(@PathParam("wadlPath") String wadlPath) {
+	public RestResponse analyseWadl(@PathParam("wadlPath") String wadlPath) {
 		
 		MatcherManager manager = new MatcherManager();
 		
 		String baseUrl = uriInfo.getBaseUri().toString().split("api")[0];
 		wadlPath = baseUrl + "application.wadl";
 		
-		return manager.createWadl(wadlPath, databaseManager);
+		return manager.analyseWadl(wadlPath, databaseManager);
 	}
 	@GET
-	@Path("match/{bpmnID}/{wadlID}")
+	@Path("match/{bpmnID}/{servletID}")
 	@Produces("application/json")
-	public RestResponse getCostumer(@PathParam("wadlID") int wadlID,
+	public RestResponse match(@PathParam("servletID") int servletID,
 			@PathParam("bpmnID") int bpmnID) {
 		
 		MatcherManager manager = new MatcherManager();
 		
-		return manager.match(bpmnID, wadlID, databaseManager);
+		return manager.match(bpmnID, servletID, databaseManager);
 	}
 
 }

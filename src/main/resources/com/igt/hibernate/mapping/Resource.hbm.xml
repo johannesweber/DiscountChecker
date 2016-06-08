@@ -20,11 +20,5 @@
             </key>
             <one-to-many class="com.igt.hibernate.bean.Method" />
         </set>
-        <set name="params" table="param" inverse="false" lazy="true">
-            <key>
-                <column name="id" />
-            </key>
-            <one-to-many class="com.igt.hibernate.bean.Param" />
-        </set>
     </class>
 </hibernate-mapping>

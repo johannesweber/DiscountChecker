@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 04. Jun 2016 um 00:08
+-- Erstellungszeit: 08. Jun 2016 um 17:31
 -- Server-Version: 5.6.26
 -- PHP-Version: 5.5.30
 
@@ -64,9 +64,12 @@ CREATE TABLE `igt_order` (
 
 CREATE TABLE `kpi` (
   `id` int(11) NOT NULL,
-  `process_id` int(11) NOT NULL,
-  `servlet_id` int(11) NOT NULL,
-  `kpi_fallout` decimal(4,3) NOT NULL,
+  `found` int(11) NOT NULL,
+  `relevant` int(11) NOT NULL,
+  `intersection_found_relevant` int(11) NOT NULL,
+  `resource_name` varchar(255) NOT NULL,
+  `step_name` varchar(220) NOT NULL,
+  `kpi_f_measure` decimal(4,3) NOT NULL,
   `kpi_recall` decimal(4,3) NOT NULL,
   `kpi_precision` decimal(4,3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -81,19 +84,6 @@ CREATE TABLE `method` (
   `id` int(11) NOT NULL,
   `name` varchar(220) NOT NULL,
   `type` enum('GET','POST','PUT','DELETE','UPDATE') NOT NULL,
-  `resource_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `param`
---
-
-CREATE TABLE `param` (
-  `id` int(11) NOT NULL,
-  `name` varchar(220) NOT NULL,
-  `type` varchar(220) NOT NULL,
   `resource_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -116,8 +106,7 @@ CREATE TABLE `peer_group` (
 
 CREATE TABLE `process` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `step_id` int(11) NOT NULL
+  `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -142,20 +131,6 @@ CREATE TABLE `servlet` (
   `id` int(11) NOT NULL,
   `base_url` varchar(220) NOT NULL,
   `path` varchar(220) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `settings`
---
-
-CREATE TABLE `settings` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `base_url` varchar(220) DEFAULT NULL,
-  `path_url` varchar(220) DEFAULT NULL,
-  `wsdl_path_url` varchar(220) DEFAULT NULL,
-  `bpmn_path_url` varchar(220) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -201,8 +176,8 @@ ALTER TABLE `igt_order`
 --
 ALTER TABLE `kpi`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `process_id` (`process_id`,`servlet_id`),
-  ADD KEY `kpi_servlet` (`servlet_id`);
+  ADD KEY `process_id` (`resource_name`,`step_name`),
+  ADD KEY `kpi_step` (`step_name`);
 
 --
 -- Indizes für die Tabelle `method`
@@ -210,13 +185,6 @@ ALTER TABLE `kpi`
 ALTER TABLE `method`
   ADD PRIMARY KEY (`id`),
   ADD KEY `webservice_id` (`resource_id`);
-
---
--- Indizes für die Tabelle `param`
---
-ALTER TABLE `param`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `method_id` (`resource_id`);
 
 --
 -- Indizes für die Tabelle `peer_group`
@@ -229,7 +197,7 @@ ALTER TABLE `peer_group`
 --
 ALTER TABLE `process`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `step_id` (`step_id`);
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indizes für die Tabelle `resource`
@@ -245,12 +213,6 @@ ALTER TABLE `resource`
 ALTER TABLE `servlet`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `base_url` (`base_url`,`path`);
-
---
--- Indizes für die Tabelle `settings`
---
-ALTER TABLE `settings`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `step`
@@ -277,17 +239,12 @@ ALTER TABLE `igt_order`
 -- AUTO_INCREMENT für Tabelle `kpi`
 --
 ALTER TABLE `kpi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 --
 -- AUTO_INCREMENT für Tabelle `method`
 --
 ALTER TABLE `method`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
---
--- AUTO_INCREMENT für Tabelle `param`
---
-ALTER TABLE `param`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 --
 -- AUTO_INCREMENT für Tabelle `peer_group`
 --
@@ -297,27 +254,22 @@ ALTER TABLE `peer_group`
 -- AUTO_INCREMENT für Tabelle `process`
 --
 ALTER TABLE `process`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT für Tabelle `resource`
 --
 ALTER TABLE `resource`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 --
 -- AUTO_INCREMENT für Tabelle `servlet`
 --
 ALTER TABLE `servlet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
---
--- AUTO_INCREMENT für Tabelle `settings`
---
-ALTER TABLE `settings`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT für Tabelle `step`
 --
 ALTER TABLE `step`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- Constraints der exportierten Tabellen
 --
@@ -336,29 +288,10 @@ ALTER TABLE `igt_order`
   ADD CONSTRAINT `igt_order_costumer_cons` FOREIGN KEY (`costumer_id`) REFERENCES `costumer` (`costumer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints der Tabelle `kpi`
---
-ALTER TABLE `kpi`
-  ADD CONSTRAINT `kpi_process` FOREIGN KEY (`process_id`) REFERENCES `process` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `kpi_servlet` FOREIGN KEY (`servlet_id`) REFERENCES `servlet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints der Tabelle `method`
 --
 ALTER TABLE `method`
   ADD CONSTRAINT `method_webservice` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints der Tabelle `param`
---
-ALTER TABLE `param`
-  ADD CONSTRAINT `param_resource` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints der Tabelle `process`
---
-ALTER TABLE `process`
-  ADD CONSTRAINT `process_step` FOREIGN KEY (`step_id`) REFERENCES `step` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `resource`
